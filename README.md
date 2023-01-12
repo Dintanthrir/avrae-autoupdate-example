@@ -1,3 +1,3 @@
-# A repository for managing content in Avrae
+# An example of using a repository to managing content in Avrae
 
 See https://github.com/Dintanthrir/avrae-autoupdate
