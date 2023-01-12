@@ -1,0 +1,41 @@
+# Example module managed by https://github.com/Dintanthrir/avrae-autoupdate-example
+
+def format_stats(stats):
+    """
+    Return a string showing these stats as a power level.
+    """
+    stat_names = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma']
+    bonuses = [
+        -1 * (5 - stats.get(current_stat) / 2) if stats.get(current_stat) < 10
+        else max(stats.get(current_stat) / 2 - 5.5, 0)
+        for current_stat in stat_names
+        ]
+    max_bonus = ceil(max(bonuses))
+    min_bonus = floor(min(bonuses))
+    rows = []
+    if max_bonus > 0:
+        rows += [
+            '  ' + '     '.join(
+                [
+                    '█' if (current_bonus - bonus_row) >= 0 
+                    else '▄' if (current_bonus - bonus_row) >= -0.5 
+                    else ' ' 
+                    for current_bonus in bonuses
+                ]
+            ) + '  '
+            for bonus_row in range(max_bonus, 0, -1)
+        ]
+    rows.append(' '.join(['[' + stat[:3:].upper() + ']' for stat in stat_names]))
+    if min_bonus < 0:
+        rows += [
+            '  ' + '     '.join(
+                [
+                    '█' if (bonus_row - current_bonus) >= 0 
+                    else '▀' if (bonus_row - current_bonus) >= -0.5 
+                    else ' ' 
+                    for current_bonus in bonuses
+                ]
+            ) + '  '
+            for bonus_row in range(-1, min_bonus - 1, -1)
+        ]
+    return '\n'.join(rows)

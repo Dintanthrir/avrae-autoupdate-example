@@ -1,0 +1,1 @@
+An example alias which renders the active character's attribute bonuses.
