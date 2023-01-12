@@ -1,1 +1,16 @@
-echo The `power_level` alias does not have an active code version. Please contact the collection author, or if you are the author, create or select an active code version on the Alias Workshop.
+<drac2>
+using(
+    embeds = '72fea181-ba03-4cb4-8edf-1f3bc5a49578',
+    power_level = '71ed7293-2f3f-4c33-9bd4-b27d25f6107e',
+)
+current_character = character()
+return embeds.get_output({
+    'title': current_character.name,
+    'desc': '\n'.join([
+        '```',
+        power_level.format_stats(character().stats),
+        '```'
+    ]),
+    'footer': f"{ctx.prefix}{ctx.alias}"
+})
+</drac2>

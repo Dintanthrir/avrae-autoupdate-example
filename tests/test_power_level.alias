@@ -1,0 +1,67 @@
+<drac2>
+using(
+    tests = '15397c01-adc2-4a9a-9011-b2e7a29245f7',
+    power_level = '71ed7293-2f3f-4c33-9bd4-b27d25f6107e',
+)
+expect = tests.expect
+return tests.run({
+    'average stats': expect(power_level.format_stats({
+        'strength': 10,
+        'dexterity': 10,
+        'constitution': 10,
+        'intelligence': 10,
+        'wisdom': 10,
+        'charisma': 10,
+    })).to.be('[STR] [DEX] [CON] [INT] [WIS] [CHA]'),
+    'stats with bonuses': expect(power_level.format_stats({
+        'strength': 10,
+        'dexterity': 11,
+        'constitution': 12,
+        'intelligence': 13,
+        'wisdom': 14,
+        'charisma': 15,
+    })).to.be(
+        '                          ▄     █  \n' \
+        '              ▄     █     █     █  \n' \
+        '[STR] [DEX] [CON] [INT] [WIS] [CHA]'
+    ),
+    'stats with penalties': expect(power_level.format_stats({
+        'strength': 10,
+        'dexterity': 9,
+        'constitution': 8,
+        'intelligence': 7,
+        'wisdom': 6,
+        'charisma': 5,
+    })).to.be(
+        '[STR] [DEX] [CON] [INT] [WIS] [CHA]\n' \
+        '        ▀     █     █     █     █  \n' \
+        '                    ▀     █     █  \n' \
+        '                                ▀  ' \
+    ),
+    'extreme stats': expect(power_level.format_stats({
+        'strength': 3,
+        'dexterity': 10,
+        'constitution': 18,
+        'intelligence': 20,
+        'wisdom': 30,
+        'charisma': 1,
+    })).to.be(
+        '                          ▄        \n' \
+        '                          █        \n' \
+        '                          █        \n' \
+        '                          █        \n' \
+        '                          █        \n' \
+        '                    ▄     █        \n' \
+        '              ▄     █     █        \n' \
+        '              █     █     █        \n' \
+        '              █     █     █        \n' \
+        '              █     █     █        \n' \
+        '[STR] [DEX] [CON] [INT] [WIS] [CHA]\n' \
+        '  █                             █  \n' \
+        '  █                             █  \n' \
+        '  █                             █  \n' \
+        '  ▀                             █  \n' \
+        '                                ▀  ' \
+    )
+}).embed
+</drac2>
